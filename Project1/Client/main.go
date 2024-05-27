@@ -1,10 +1,11 @@
 package main
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"strings"
 )
 
 func main() {
@@ -28,8 +29,17 @@ func main() {
 
 	// JSON body method - http://localhost/body
 	client := &http.Client{}
-	reqBody := `{"name":"xml1025"}`
-	req, err := http.NewRequest("POST", "http://localhost/body", strings.NewReader(reqBody))
+	// Create the JSON object
+	reqData := map[string]string{
+		"name": "xml1025",
+	}
+	reqBody, err := json.Marshal(reqData)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
+
+	req, err := http.NewRequest("POST", "http://localhost/body", bytes.NewBuffer(reqBody))
 	if err != nil {
 		fmt.Println(err)
 		return
@@ -38,6 +48,7 @@ func main() {
 	response, err = client.Do(req)
 	if err != nil {
 		fmt.Println(err)
+		return
 	} else {
 		data, _ := ioutil.ReadAll(response.Body)
 		fmt.Println(string(data))
