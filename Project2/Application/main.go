@@ -54,6 +54,6 @@ func handle(w http.ResponseWriter, r *http.Request) {
 
 func main() {
 	http.HandleFunc("/", handle)
-	//http.ListenAndServe("", nil)
-	http.ListenAndServeTLS("", "Project2/Application/cert.pem", "Project2/Application/key.pem", nil)
+	http.ListenAndServe("", nil)
+	//http.ListenAndServeTLS("", "Project2/Application/cert.pem", "Project2/Application/key.pem", nil)
 }
