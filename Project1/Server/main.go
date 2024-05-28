@@ -93,7 +93,7 @@ func main() {
 	http.ListenAndServe("", nil)
 
 	/*
-		server := http.Server{
+		server := http.Application{
 			Addr:         "",
 			Handler:      nil,
 			ReadTimeout:  1000,
